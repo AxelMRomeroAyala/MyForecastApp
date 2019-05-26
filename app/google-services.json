@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "540889977038",
+    "firebase_url": "https://myforecastapp-ed2e2.firebaseio.com",
+    "project_id": "myforecastapp-ed2e2",
+    "storage_bucket": "myforecastapp-ed2e2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:540889977038:android:8862ab6ca4c6e70d",
+        "android_client_info": {
+          "package_name": "com.axelromero.myforecastapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "540889977038-idoolh6g4d839vjeahk3oc8mepkp08fb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDwfxybUxulm0jr8cHnKJiLZQltE-KnK80"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "540889977038-idoolh6g4d839vjeahk3oc8mepkp08fb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
