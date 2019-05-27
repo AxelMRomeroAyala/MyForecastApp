@@ -12,11 +12,26 @@ import com.google.gson.reflect.TypeToken;
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 
 public class Utils {
 
     public enum SharedPreferencesKeys {
         HISTORY_KEY
+    }
+
+    public static final String METRIC = "metric";
+    public static final String IMPERIAL = "imperial";
+
+    public static OpenWeatherMapService generateOpenWeatherMapService(){
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://api.openweathermap.org")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        return retrofit.create(OpenWeatherMapService.class);
     }
 
     public static void saveToSharedPreferences(Context context, SharedPreferencesKeys key, String value) {
@@ -34,21 +49,17 @@ public class Utils {
     }
 
     public static void saveHistoryList(Context context, List<ForecastModel> list){
+        //Use Gson to convert the list to a string representation, then save it in shared prefs.
         saveToSharedPreferences(context, SharedPreferencesKeys.HISTORY_KEY, new Gson().toJson(list));
     }
 
     public static List<ForecastModel> loadHistoryList(Context context){
-
+        //Recover the previously saved string representation of the history list, if there were none, return with an empty list.
         List<ForecastModel> list = new Gson().fromJson(getFromSharedPreferences(context, SharedPreferencesKeys.HISTORY_KEY), new TypeToken<List<ForecastModel>>() {}.getType());
         if(list== null){
             list= new ArrayList<>();
         }
         return list;
-    }
-
-
-    public static double kelvinToCelsius(double kelvin){
-        return kelvin - 273.15;
     }
 
     public static void hideKeyboard(Activity activity) {
@@ -59,11 +70,20 @@ public class Utils {
         if (view == null) {
             view = new View(activity);
         }
+        assert imm != null;
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
     public static String getTempString(double temp){
-        return round(kelvinToCelsius(temp)) +" °C";
+        return round(temp) +" °C";
+    }
+
+    public static String getHumidityString(double hum){
+        return round(hum) +"%";
+    }
+
+    public static String getPressureString(double press){
+        return round(press) +" hPa";
     }
 
     public static int round(double value) {

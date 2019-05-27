@@ -4,57 +4,149 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".MainActivity">
+        android:layout_height="match_parent">
 
         <fragment
             android:id="@+id/map"
             android:name="com.google.android.gms.maps.SupportMapFragment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="0px"
+            android:layout_height="0px"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/map_limit"
             tools:context=".MapsActivity" />
 
         <EditText
-            android:id="@+id/serch_input"
+            android:id="@+id/search_input"
             android:layout_width="0px"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="32dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@id/search_button"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
+        <ImageView
             android:id="@+id/search_button"
-            android:layout_width="0px"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:layout_marginEnd="32dp"
-            android:text="SEARCH"
-            app:layout_constraintLeft_toRightOf="@id/serch_input"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="16dp"
+            android:adjustViewBounds="true"
+            android:padding="8dp"
+            android:src="@drawable/search_icon"
+            app:layout_constraintBottom_toBottomOf="@id/search_input"
+            app:layout_constraintLeft_toRightOf="@id/search_input"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@id/search_input" />
 
         <TextView
             android:id="@+id/data_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:padding="16dp"
             android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:visibility="gone"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/map_limit"
+            tools:text="Buenos Aires" />
+
+        <ImageButton
+            android:id="@+id/center_map_current_location"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="16dp"
+            android:adjustViewBounds="true"
+            android:background="@drawable/center_map_background"
+            android:padding="8dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/center_map"
+            android:textSize="20sp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/map_limit" />
 
         <TextView
             android:id="@+id/data_temperature"
+            android:layout_width="0px"
+            android:layout_height="0px"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:text="- °C"
+            app:autoSizeTextType="uniform"
+            app:layout_constraintBottom_toTopOf="@+id/map_limit"
+            app:layout_constraintEnd_toStartOf="@id/data_humidity"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/search_input"
+            tools:text="23 °C" />
+
+        <TextView
+            android:id="@+id/data_humidity"
+            android:layout_width="0px"
+            android:layout_height="0px"
+            android:lines="1"
+            android:textColor="@color/black"
+            app:autoSizeTextType="uniform"
+            app:layout_constraintBottom_toTopOf="@+id/data_pressure"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/data_temperature"
+            app:layout_constraintTop_toBottomOf="@id/search_input"
+            android:text="@string/humidity"
+            tools:text="Humidity: 30%" />
+
+        <TextView
+            android:id="@+id/data_pressure"
+            android:layout_width="0px"
+            android:layout_height="0px"
+            android:lines="1"
+            android:textColor="@color/black"
+            app:autoSizeTextType="uniform"
+            app:layout_constraintBottom_toTopOf="@+id/data_max"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/data_temperature"
+            app:layout_constraintTop_toBottomOf="@id/data_humidity"
+            android:text="@string/pressure"
+            tools:text="Pressure: 1080 Hpa" />
+
+        <TextView
+            android:id="@+id/data_max"
+            android:layout_width="0px"
+            android:layout_height="0px"
+            android:lines="1"
+            android:textColor="@color/black"
+            app:autoSizeTextType="uniform"
+            app:layout_constraintBottom_toTopOf="@+id/data_min"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/data_temperature"
+            app:layout_constraintTop_toBottomOf="@id/data_pressure"
+            android:text="@string/max_temp"
+            tools:text="Min: 13°C" />
+
+        <TextView
+            android:id="@+id/data_min"
+            android:layout_width="0px"
+            android:layout_height="0px"
+            android:lines="1"
+            android:textColor="@color/black"
+            app:autoSizeTextType="uniform"
+            app:layout_constraintBottom_toTopOf="@+id/map_limit"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/data_temperature"
+            app:layout_constraintTop_toBottomOf="@id/data_max"
+            android:text="@string/min_temp"
+            tools:text="Max: 23°C" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/map_limit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/serch_input"/>
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent=".2" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -64,15 +156,16 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:behavior_hideable="false"
-        app:behavior_peekHeight="80dp"
+        app:behavior_peekHeight="@dimen/bottom_sheet_height"
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:background="@color/colorAccent"
+            android:layout_width="120dp"
+            android:layout_height="@dimen/bottom_sheet_height"
+            android:layout_gravity="end"
+            android:background="@drawable/history_tab_background"
             android:gravity="center"
-            android:text="History"
+            android:text="@string/history"
             android:textColor="@android:color/white" />
 
         <androidx.recyclerview.widget.RecyclerView
@@ -86,6 +179,5 @@
             app:layout_constraintRight_toRightOf="parent"
             tools:listitem="@layout/history_item" />
     </LinearLayout>
-
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

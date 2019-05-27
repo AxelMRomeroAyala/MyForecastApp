@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">MyForecastApp</string>
     <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyDtrYs7r5nk1POw7aydsG4SLK_4Ju3pPqk</string>
+    <string name="humidity">Humidity:</string>
+    <string name="pressure">Pressure:</string>
+    <string name="max_temp">Max:</string>
+    <string name="min_temp">Min:</string>
+    <string name="history">HISTORY</string>
 </resources>

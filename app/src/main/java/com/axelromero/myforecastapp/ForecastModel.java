@@ -2,21 +2,27 @@ package com.axelromero.myforecastapp;
 
 public class ForecastModel {
 
-    public Coord coord;
-    public Main main;
-    public String name;
+    Coord coord;
+    Main main;
+    Sys sys;
+    String name;
+    int id;
 
-    public class Coord {
-        public double lon;
-        public double lat;
+    class Coord {
+        double lon;
+        double lat;
     }
 
     public class Main {
-        public double temp;
-        public double pressure;
-        public double humidity;
-        public double temp_min;
-        public double temp_max;
+        double temp;
+        double pressure;
+        double humidity;
+        double temp_min;
+        double temp_max;
+    }
+
+    class Sys{
+        String country;
     }
 
     public String getAsString() {
