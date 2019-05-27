@@ -22,7 +22,7 @@ public class MainActivityPresenter {
 
     void getForecastData(String query) {
         Call<ForecastModel> call = weatherService.getForecast(query, appId, Utils.METRIC);
-
+        mainActInterface.isLoading(true);
         call.enqueue(new Callback<ForecastModel>() {
             @Override
             public void onResponse(Call<ForecastModel> call, Response<ForecastModel> response) {
@@ -31,18 +31,19 @@ public class MainActivityPresenter {
                 } else {
                     mainActInterface.showToast("Can't find that city.");
                 }
+                mainActInterface.isLoading(false);
             }
 
             @Override
             public void onFailure(Call<ForecastModel> call, Throwable t) {
-
+                mainActInterface.isLoading(false);
             }
         });
     }
 
     void getForecastDataWithLocation(Location location) {
         Call<ForecastModel> call = weatherService.getForecastWithLocation(appId, Utils.METRIC, location.getLatitude(), location.getLongitude());
-
+        mainActInterface.isLoading(true);
         call.enqueue(new Callback<ForecastModel>() {
             @Override
             public void onResponse(Call<ForecastModel> call, Response<ForecastModel> response) {
@@ -51,11 +52,12 @@ public class MainActivityPresenter {
                 } else {
                     mainActInterface.showToast("Can't find that city.");
                 }
+                mainActInterface.isLoading(false);
             }
 
             @Override
             public void onFailure(Call<ForecastModel> call, Throwable t) {
-
+                mainActInterface.isLoading(false);
             }
         });
     }
@@ -63,5 +65,6 @@ public class MainActivityPresenter {
     interface MainActInterface {
         void displayWeatherInfo(ForecastModel forecastModel);
         void showToast(String message);
+        void isLoading(boolean isLoading);
     }
 }

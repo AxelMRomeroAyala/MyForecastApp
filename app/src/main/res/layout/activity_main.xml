@@ -9,7 +9,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/white">
 
         <fragment
             android:id="@+id/map"
@@ -28,6 +29,9 @@
             android:layout_height="50dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
+            android:hint="@string/input_hint"
+            android:inputType="text"
+            android:imeOptions="actionSearch"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@id/search_button"
             app:layout_constraintTop_toTopOf="parent" />
@@ -49,7 +53,7 @@
             android:id="@+id/data_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/white"
+            android:background="@drawable/name_background"
             android:padding="16dp"
             android:textSize="20sp"
             android:visibility="gone"
@@ -76,8 +80,8 @@
             android:layout_width="0px"
             android:layout_height="0px"
             android:gravity="center"
-            android:textColor="@color/black"
             android:text="- °C"
+            android:textColor="@color/black"
             app:autoSizeTextType="uniform"
             app:layout_constraintBottom_toTopOf="@+id/map_limit"
             app:layout_constraintEnd_toStartOf="@id/data_humidity"
@@ -90,13 +94,13 @@
             android:layout_width="0px"
             android:layout_height="0px"
             android:lines="1"
+            android:text="@string/humidity"
             android:textColor="@color/black"
             app:autoSizeTextType="uniform"
             app:layout_constraintBottom_toTopOf="@+id/data_pressure"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/data_temperature"
             app:layout_constraintTop_toBottomOf="@id/search_input"
-            android:text="@string/humidity"
             tools:text="Humidity: 30%" />
 
         <TextView
@@ -104,13 +108,13 @@
             android:layout_width="0px"
             android:layout_height="0px"
             android:lines="1"
+            android:text="@string/pressure"
             android:textColor="@color/black"
             app:autoSizeTextType="uniform"
             app:layout_constraintBottom_toTopOf="@+id/data_max"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/data_temperature"
             app:layout_constraintTop_toBottomOf="@id/data_humidity"
-            android:text="@string/pressure"
             tools:text="Pressure: 1080 Hpa" />
 
         <TextView
@@ -118,13 +122,13 @@
             android:layout_width="0px"
             android:layout_height="0px"
             android:lines="1"
+            android:text="@string/max_temp"
             android:textColor="@color/black"
             app:autoSizeTextType="uniform"
             app:layout_constraintBottom_toTopOf="@+id/data_min"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/data_temperature"
             app:layout_constraintTop_toBottomOf="@id/data_pressure"
-            android:text="@string/max_temp"
             tools:text="Min: 13°C" />
 
         <TextView
@@ -132,14 +136,23 @@
             android:layout_width="0px"
             android:layout_height="0px"
             android:lines="1"
+            android:text="@string/min_temp"
             android:textColor="@color/black"
             app:autoSizeTextType="uniform"
             app:layout_constraintBottom_toTopOf="@+id/map_limit"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/data_temperature"
             app:layout_constraintTop_toBottomOf="@id/data_max"
-            android:text="@string/min_temp"
             tools:text="Max: 23°C" />
+
+        <ProgressBar
+            android:id="@+id/progress_circular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/map_limit" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/map_limit"

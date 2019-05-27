@@ -16,11 +16,14 @@ import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,6 +49,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityPrese
     private ImageButton currentLocation;
     private TextView textView, temperatureView, humidityView, pressureView, maxView, minView;
     private EditText searchInput;
+    private ProgressBar progressBar;
     private RecyclerView historyRecycler;
     private SupportMapFragment mapFragment;
     private LinearLayout bottomSheet;
@@ -64,7 +68,6 @@ public class MainActivity extends AppCompatActivity implements MainActivityPrese
 
         mainActivityPresenter= new MainActivityPresenter(getBaseContext(),this);
 
-
         mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
@@ -79,6 +82,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityPrese
         minView = findViewById(R.id.data_min);
         searchInput = findViewById(R.id.search_input);
         currentLocation= findViewById(R.id.center_map_current_location);
+        progressBar= findViewById(R.id.progress_circular);
 
         historyAdapter = new HistoryAdapter(getBaseContext(), this);
         historyRecycler.setLayoutManager(new LinearLayoutManager(getBaseContext()));
@@ -113,6 +117,11 @@ public class MainActivity extends AppCompatActivity implements MainActivityPrese
         Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
     }
 
+    @Override
+    public void isLoading(boolean isLoading) {
+        progressBar.setVisibility(isLoading? View.VISIBLE: View.INVISIBLE);
+    }
+
     private void manageBottomSheet() {
         if (behavior.getState() == BottomSheetBehavior.STATE_COLLAPSED) {
             behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
@@ -139,6 +148,17 @@ public class MainActivity extends AppCompatActivity implements MainActivityPrese
         bottomSheet.setOnClickListener(this);
         textView.setOnClickListener(this);
         currentLocation.setOnClickListener(this);
+
+        searchInput.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
+                if (keyCode == KeyEvent.KEYCODE_ENTER) {
+                    searchButton.callOnClick();
+                    return true;
+                }
+                return false;
+            }
+        });
 
         loadLastSearchedCity();
     }
@@ -198,7 +218,6 @@ public class MainActivity extends AppCompatActivity implements MainActivityPrese
                     getCurrentLocationWeather();
                 } else {
                     Toast.makeText(getBaseContext(), "You Rejected the Required permission", Toast.LENGTH_SHORT).show();
-                    finish();
                 }
             }
         }
